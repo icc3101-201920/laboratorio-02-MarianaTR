@@ -21,6 +21,9 @@ namespace Laboratorio_1_OOP_201902
 
         private SpecialCard[] captainCards;
         private List<SpecialCard> weatherCards;
+        private Player jugador;
+
+
 
         //Propiedades
         public List<CombatCard>[] MeleeCards
@@ -101,6 +104,7 @@ namespace Laboratorio_1_OOP_201902
             this.longRangeCards = new List<CombatCard>[DEFAULT_NUMBER_OF_PLAYERS];
             this.weatherCards = new List<SpecialCard>();
             this.captainCards = new SpecialCard[DEFAULT_NUMBER_OF_PLAYERS];
+           
         }
 
         
@@ -154,17 +158,163 @@ namespace Laboratorio_1_OOP_201902
         {
             throw new NotImplementedException();
         }
-        public int[] GetMeleeAttackPoints()
+
+        //NUEVOS METODOS
+        public void AddCombatCard(int playerId, CombatCard combatCard)
         {
-            throw new NotImplementedException();
+            string tipo = combatCard.Type;
+            if (tipo == "melee")
+            {
+                meleeCards[playerId].Add(combatCard);
+            }
+            else if (tipo == "range")
+            {
+                rangeCards[playerId].Add(combatCard);
+            }
+            else if (tipo=="longRange")
+            {
+                LongRangeCards[playerId].Add(combatCard);
+            }
+            return;
+
         }
-        public int[] GetRangeAttackPoints()
+
+        public void AddSpecialCard(SpecialCard specialCard, int playerId, string buffType)
         {
-            throw new NotImplementedException();
+            string ty = specialCard.Type;
+            if (ty == "melee")
+            {
+                if (specialMeleeCards[playerId] == null)
+                {
+                    specialMeleeCards[playerId] = specialCard;
+                }
+                else
+                {
+                    Console.WriteLine("Ya  tiene una Special Card Melee");
+                }
+            }
+            else if (ty == "range")
+            {
+                if (SpecialRangeCards[playerId] == null)
+                {
+                    SpecialRangeCards[playerId] = specialCard;
+                }
+                else
+                {
+                    Console.WriteLine("Ya tiene  una Special Card Range");
+                }
+            }
+            else if (ty == "longRange")
+            {
+                if (SpecialLongRangeCards[playerId] == null)
+                {
+                    SpecialLongRangeCards[playerId] = specialCard;
+                }
+                else
+                {
+                    Console.WriteLine("Ya tiene  una Special Card  LongRange");
+                }
+            }
+            
         }
-        public int[] GetLongRangeAttackPoints()
+
+        public void DestroyCombatCard(int playerId)
         {
-            throw new NotImplementedException();
+            meleeCards[playerId].Clear();
+            rangeCards[playerId].Clear();
+            longRangeCards[playerId].Clear();
+            return;
         }
+
+        public void DestroySpecialCards(int playerId)   //inclui un parametro porque segun yo faltaba para poder hacer de cada jugador
+        {
+            SpecialMeleeCards[playerId] = null;
+            SpecialLongRangeCards[playerId] = null;
+            specialRangeCards[playerId] = null;
+            return;
+
+        }
+
+        public Array GetMeleeAttackPoints()
+        {
+            //retornar en un arregglo cada punto de ataca del jugador
+
+            int primerJugador = 0;
+            int segundoJugador = 0;
+            int i = 0;
+            while (i < 3)
+            {
+                for (int j = 0; j < meleeCards[i].Count; j++)
+                {
+                    if (i == 0)
+                    {
+                        primerJugador += meleeCards[i][j].AttackPoints;
+                    }
+                    else
+                    {
+                        segundoJugador += meleeCards[i][j].AttackPoints;
+                    }
+                }
+                
+                
+            }
+            int[,] arrayR = new int[primerJugador, segundoJugador];
+            return arrayR;
+
+        }
+
+        public Array GetRangeAttackPoints()
+        {
+            int jugador0 = 0;
+            int jugador1 = 0;
+            int i = 0;
+            
+            while (i<3)
+            {
+                for (int j=0; j<rangeCards[i].Count; j++)
+                {
+                    if (i == 0)
+                    {
+                        jugador0 += rangeCards[i][j].AttackPoints;
+                    }
+                    else
+                    {
+                        jugador1 += rangeCards[i][j].AttackPoints;
+                    }
+                        
+                }
+                i++;
+            }
+
+            int[,] contador = new int[jugador0, jugador1];
+            return contador;
+
+        }
+
+        public Array GetLongRangeAttackPoints()
+        {
+            int J0 = 0;
+            int J1 = 0;
+            int i = 0;
+            while (i<3)
+            {
+                for (int j=0; j < LongRangeCards[i].Count; j++)
+                {
+                    if (i==0)
+                    {
+                        J0 += LongRangeCards[i][j].AttackPoints;
+                    }
+                    else
+                    {
+                        J1 += LongRangeCards[i][j].AttackPoints;
+                    }
+                }
+                i++;
+            }
+
+            int[,] puntaje = new int[J0, J1];
+            return puntaje;
+        }
+
     }
 }

@@ -8,15 +8,16 @@ namespace Laboratorio_1_OOP_201902
     public class Deck
     {
         private List<CombatCard> combatCards;
-        private List<SpecialCard> SpecialCards;
+        private List<SpecialCard> specialCards;
 
         public Deck()
         {
-
+            this.combatCards = new List<CombatCard>();
+            this.specialCards = new List<SpecialCard>();
         }
 
         public List<CombatCard> CombatCards { get => combatCards; set => combatCards = value; }
-        public List<SpecialCard> SpecialCards1 { get => SpecialCards; set => SpecialCards = value; }
+        public List<SpecialCard> SpecialCards1 { get => specialCards; set => specialCards = value; }
 
         public void AddCombatCard(CombatCard combatCard) { throw new NotImplementedException(); }
         public void AddSpecialCard(SpecialCard specialCard) { throw new NotImplementedException(); }
