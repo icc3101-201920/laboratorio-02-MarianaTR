@@ -77,9 +77,11 @@ namespace Laboratorio_1_OOP_201902
         }
         public int GetWinner()  //verificar cual gano con las vidas
         {
+            int Id = 0000;
             if (CheckIfEndGame() == false)
             {
-                throw new System.InvalidOperationException("No hay ganador por los momentos");  //se utiliza para mostrarle al usuario que lo que mando a hacer o verificar aun no se puede definir
+                Console.WriteLine("No hay ganador por los momentos");
+                return Id;
             }
             else if (players[0].LifePoints == 0)
             {
